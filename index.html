@@ -196,6 +196,21 @@
 	</section>
 
 
+	<section class="ftco-section" id="projects_past">
+		<div class="container">
+			<div class="row justify-content-center mb-5 pb-2">
+      			<div class="col-md-12 text-center heading-section ftco-animate">
+        			<h2 class="mb-12"><span>Past Projects</span></h2>
+        		</div>
+	    	</div>
+	    	<div class="row" id="projects_past_json">
+	    	</div>
+		</div>
+	</section>
+
+
+
+
 	<section class="ftco-section contact-section" id="contacts">
       <div class="container">
       	<div class="row justify-content-center mb-5 pb-2">
@@ -326,23 +341,32 @@
 		 	$('#ex_json').append(cs_ex);
 		});
 		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/projects.json", function(data) {
+			console.log(data);
 			var obj = jQuery.parseJSON(data);
 			var cs = "";
+			var cs_past = "";
 			$.each(obj, function(i){
 				var year = obj[i]['year'];
 		 		var title = obj[i]['title'];
 		 		var text = obj[i]['text'];
+		 		var tipo = obj[i]['tipo'];
+
 		 		_html = "<div class='col-md-12 d-lg-flex'><div class='text bg-light'><h3><a href='#projects' class='scrollLink'>###TITLE###</a></h3><p class='subheading'><span>###YEAR###</span></p><p>###TEXT###</p></div></div>".replace('###YEAR###', year).replace('###TITLE###', title).replace('###TEXT###', text);
-		 		cs = cs.concat(_html);
+		 		if(tipo=="past"){
+		 			cs_past = cs_past.concat(_html);
+		 		}else{
+		 			cs = cs.concat(_html);	
+		 		}
+		 		
 			});
 			$('#projects_json').append(cs);
+			$('#projects_past_json').append(cs_past);
 
 		});
 
 
 		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/faculty.json", function(data) {
 		 	var obj = jQuery.parseJSON(data);
-		 	console.log(data);
 		 	var tag = $('#collaborators_json')
 		 	var cs = "";
 		 	$.each(obj, function(i){
