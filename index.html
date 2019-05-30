@@ -37,7 +37,7 @@
 	        <ul class="navbar-nav ml-auto">
 	        	<li class="nav-item active"><a href="index.html" class="nav-link pl-0">Home</a></li>
 	        	<li class="nav-item"><a href="#members" class="nav-link scrollLink">Members</a></li>
-	        	<li class="nav-item"><a href="#projects" class="nav-link scrollLink">Projects</a></li>
+	        	<li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
 	        	<li class="nav-item"><a href="publications.html" class="nav-link">Publications</a></li>
 	          <li class="nav-item"><a href="#contacts" class="nav-link scrollLink">Contact</a></li>
 	        </ul>
@@ -183,6 +183,8 @@
 		</div>
 		</div>
 	</section>
+
+
 	<section class="ftco-section" id="projects">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-2">
@@ -192,20 +194,13 @@
 	    	</div>
 	    	<div class="row" id="projects_json">
 	    	</div>
-		</div>
-	</section>
-
-
-	<section class="ftco-section" id="projects_past">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-2">
-      			<div class="col-md-12 text-center heading-section ftco-animate">
-        			<h2 class="mb-12"><span>Past Projects</span></h2>
-        		</div>
-	    	</div>
-	    	<div class="row" id="projects_past_json">
+	    	<div class="row">
+	    			<a href="projects.html">More projects...</a>
 	    	</div>
 		</div>
+	
+
+
 	</section>
 
 
@@ -296,8 +291,7 @@
 
   <script>
 	$(document).ready(function(){
-		//
-		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/collaborators.json", function(data) {
+		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/faculty.json", function(data) {
 		 	var obj = jQuery.parseJSON(data);
 		 	var tag = $('#collaborators_json')
 		 	var cs = "";
@@ -307,11 +301,12 @@
 		 		var link = obj[i]['link'];
 		 		var description = obj[i]['description'];
 		 		var image = obj[i]['image'];
-		 		_html = "<div class='col-md-2'><div class='staff'><div class='text pt-3 text-center'><h3><a href='###LATTES1###' target='_blank'>####NAME###</a></h3><div class='faded'><p>###DESCRIPTION###</p><ul class='ftco-social justify-content'><li><a href='###LATTES2###' target='_blank'><span class='icon-school'></span></a></li><li><a href='###LINK###'><span class='icon-facebook'></span></a></li></ul></div></div></div></div>".replace('####NAME###', name).replace('###LATTES1###', lattes).replace('###LATTES2###', lattes).replace('###LINK###', link).replace('###DESCRIPTION###', description).replace('###IMAGE###', image);
+		 		_html = "<div class='col-md-3'><div class='staff'><div class='img-wrap d-flex align-items-stretch'><div class='img align-self-stretch' style='background-image: url(###IMAGE###);'></div></div><div class='text pt-3 text-center'><h3><a href='###LATTES1###' target='_blank'>####NAME###</a></h3><div class='faded'><p>###DESCRIPTION###</p><ul class='ftco-social justify-content'><li><a href='###LATTES2###' target='_blank'><span class='icon-school'></span></a></li><li><a href='###LINK###'><span class='icon-facebook'></span></a></li></ul></div></div></div></div>".replace('####NAME###', name).replace('###LATTES1###', lattes).replace('###LATTES2###', lattes).replace('###LINK###', link).replace('###DESCRIPTION###', description).replace('###IMAGE###', image);
 		 		cs = cs.concat(_html);
 		 	});
-		 	$('#collaborators_json').append(cs);
+		 	$('#faculty_json').append(cs);
 		});
+
 
 		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/students.json", function(data) {
 		 	var obj = jQuery.parseJSON(data);
@@ -340,6 +335,23 @@
 		 	$('#msc_json').append(cs_msc);
 		 	$('#ex_json').append(cs_ex);
 		});
+
+		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/collaborators.json", function(data) {
+		 	var obj = jQuery.parseJSON(data);
+		 	var tag = $('#collaborators_json')
+		 	var cs = "";
+		 	$.each(obj, function(i){
+		 		var name = obj[i]['name'];
+		 		var lattes = obj[i]['lattes'];
+		 		var link = obj[i]['link'];
+		 		var description = obj[i]['description'];
+		 		var image = obj[i]['image'];
+		 		_html = "<div class='col-md-2'><div class='staff'><div class='text pt-3 text-center'><h3><a href='###LATTES1###' target='_blank'>####NAME###</a></h3><div class='faded'><p>###DESCRIPTION###</p><ul class='ftco-social justify-content'><li><a href='###LATTES2###' target='_blank'><span class='icon-school'></span></a></li><li><a href='###LINK###'><span class='icon-facebook'></span></a></li></ul></div></div></div></div>".replace('####NAME###', name).replace('###LATTES1###', lattes).replace('###LATTES2###', lattes).replace('###LINK###', link).replace('###DESCRIPTION###', description).replace('###IMAGE###', image);
+		 		cs = cs.concat(_html);
+		 	});
+		 	$('#collaborators_json').append(cs);
+		});
+
 		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/projects.json", function(data) {
 			console.log(data);
 			var obj = jQuery.parseJSON(data);
@@ -365,21 +377,7 @@
 		});
 
 
-		$.get("https://raw.githubusercontent.com/cbio-ufpr/resources/master/faculty.json", function(data) {
-		 	var obj = jQuery.parseJSON(data);
-		 	var tag = $('#collaborators_json')
-		 	var cs = "";
-		 	$.each(obj, function(i){
-		 		var name = obj[i]['name'];
-		 		var lattes = obj[i]['lattes'];
-		 		var link = obj[i]['link'];
-		 		var description = obj[i]['description'];
-		 		var image = obj[i]['image'];
-		 		_html = "<div class='col-md-3'><div class='staff'><div class='img-wrap d-flex align-items-stretch'><div class='img align-self-stretch' style='background-image: url(###IMAGE###);'></div></div><div class='text pt-3 text-center'><h3><a href='###LATTES1###' target='_blank'>####NAME###</a></h3><div class='faded'><p>###DESCRIPTION###</p><ul class='ftco-social justify-content'><li><a href='###LATTES2###' target='_blank'><span class='icon-school'></span></a></li><li><a href='###LINK###'><span class='icon-facebook'></span></a></li></ul></div></div></div></div>".replace('####NAME###', name).replace('###LATTES1###', lattes).replace('###LATTES2###', lattes).replace('###LINK###', link).replace('###DESCRIPTION###', description).replace('###IMAGE###', image);
-		 		cs = cs.concat(_html);
-		 	});
-		 	$('#faculty_json').append(cs);
-		});
+		
 
 
 	});
